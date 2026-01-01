@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>مدرستنا — منصة تعليمية احترافية</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Firebase compat SDKs (Auth, Firestore, Storage) -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+
+    <!-- i18next + language detector + http backend (CDN) -->
+    <script src="https://unpkg.com/i18next@23.0.1/i18next.min.js"></script>
+    <script src="https://unpkg.com/i18next-browser-languagedetector@7.0.1/i18nextBrowserLanguageDetector.min.js"></script>
+    <script src="https://unpkg.com/i18next-http-backend@2.2.1/i18nextHttpBackend.min.js"></script>
+</head>
+<body>
+<div id="app" class="app">
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-inner">
+            <div class="brand">
+                <div class="logo">🎓</div>
+                <div>
+                    <h1 class="site-title" data-i18n="ourSchool">مدرستنا</h1>
+                    <div class="site-sub" data-i18n="smartPlatform">منصة تعليمية ذكية</div>
+                </div>
+            </div>
+
+            <nav class="nav" id="nav">
+                <button class="nav-btn" data-target="home" data-i18n="home">الرئيسية</button>
+                <button class="nav-btn" data-target="schedule" data-i18n="schedule">الجدول</button>
+                <button class="nav-btn" data-target="teachers" data-i18n="teachers">المعلمون</button>
+                <button class="nav-btn" data-target="activities" data-i18n="activities">الأنشطة</button>
+                <button class="nav-btn" data-target="contact" data-i18n="contact">اتصل بنا</button>
+            </nav>
+
+            <div class="controls">
+                <select id="langSelect" class="lang-select" title="اختيار اللغة"></select>
+                <button id="darkBtn" class="control" title="تبديل الوضع">🌙</button>
+                <div id="userArea" class="user-area"></div>
+                <button id="menuToggle" class="menu-toggle">☰</button>
+            </div>
+        </div>
+
+        <!-- Mobile nav -->
+        <div id="mobileNav" class="mobile-nav hidden">
+            <button class="nav-btn" data-target="home">الرئيسية</button>
+            <button class="nav-btn" data-target="schedule">الجدول</button>
+            <button class="nav-btn" data-target="teachers">المعلمون</button>
+            <button class="nav-btn" data-target="activities">الأنشطة</button>
+            <button class="nav-btn" data-target="contact">اتصل بنا</button>
+        </div>
+    </header>
+
+    <!-- Main -->
+    <main class="main container" id="mainContent">
+        <!-- Home -->
+        <section id="home" class="page">
+            <section class="hero animate-hero">
+                <div class="hero-left">
+                    <h2 class="hero-title" data-i18n="welcome">مرحباً بك في مدرستنا</h2>
+                    <p class="hero-sub" data-i18n="modernPlatform">منصة تعليمية حديثة لمستقبل أفضل</p>
+                    <div class="hero-actions">
+                        <button class="btn primary" data-target="schedule" id="exploreBtn">استكشف الآن</button>
+                        <button class="btn" id="startBtn">ابدأ التعلم</button>
+                    </div>
+                </div>
+                <div class="hero-right floating">🎓</div>
+            </section>
+
+            <section class="features" aria-label="features">
+                <article class="card animate-on-scroll">
+                    <div class="icon">📚</div>
+                    <h3 data-i18n="content">محتوى تعليمي</h3>
+                    <p data-i18n="contentDesc">مكتبة شاملة من الدروس</p>
+                </article>
+                <article class="card animate-on-scroll">
+                    <div class="icon">📅</div>
+                    <h3 data-i18n="organized">جدول منظم</h3>
+                    <p data-i18n="organizedDesc">تتبع الحصص بسهولة</p>
+                </article>
+                <article class="card animate-on-scroll">
+                    <div class="icon">👩‍🏫</div>
+                    <h3 data-i18n="teachers">معلمون متميزون</h3>
+                    <p data-i18n="teachersDesc">نخبة من المعلمين</p>
+                </article>
+                <article class="card animate-on-scroll">
+                    <div class="icon">🏆</div>
+                    <h3 data-i18n="evaluation">نظام التقييم</h3>
+                    <p data-i18n="evaluationDesc">متابعة التطور</p>
+                </article>
+            </section>
+        </section>
+
+        <!-- Schedule -->
+        <section id="schedule" class="page hidden">
+            <div class="section-head">
+                <h2 data-i18n="schoolSchedule">الجدول الدراسي</h2>
+                <div id="scheduleAdmin" class="admin-controls"></div>
+            </div>
+            <div id="scheduleList" class="grid"></div>
+        </section>
+
+        <!-- Teachers -->
+        <section id="teachers" class="page hidden">
+            <div class="section-head">
+                <h2 data-i18n="ourTeachers">نخبة المعلمين</h2>
+                <div id="teachersAdmin" class="admin-controls"></div>
+            </div>
+            <div id="teacherList" class="grid"></div>
+        </section>
+
+        <!-- Activities -->
+        <section id="activities" class="page hidden">
+            <h2 data-i18n="activitiesTitle">الأنشطة المدرسية</h2>
+            <div id="activitiesList" class="grid"></div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" class="page hidden">
+            <h2 data-i18n="contactTitle">تواصل معنا</h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <h3 data-i18n="contactInfo">معلومات الاتصال</h3>
+                    <p><strong data-i18n="email">البريد:</strong> school@edu.eg</p>
+                    <p><strong data-i18n="phone">الهاتف:</strong> +20 123 456 7890</p>
+                    <p><strong data-i18n="address">العنوان:</strong> القاهرة، مصر</p>
+                </div>
+                <form id="contactForm" class="contact-card">
+                    <h3 data-i18n="sendMsg">أرسل رسالة</h3>
+                    <input name="name" placeholder="الاسم" required />
+                    <input type="email" name="email" placeholder="البريد الإلكتروني" required />
+                    <textarea name="message" rows="5" placeholder="الرسالة" required></textarea>
+                    <button class="btn primary" type="submit" data-i18n="send">إرسال</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div>© <span id="year"></span> <span data-i18n="ourSchool">مدرستنا</span> - <span data-i18n="rights">جميع الحقوق محفوظة</span></div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+        <div class="modal-card animate-modal">
+            <div class="modal-header">
+                <h3 id="loginTitle" data-i18n="login">تسجيل الدخول</h3>
+                <button class="close" data-action="close">×</button>
+            </div>
+            <div class="modal-body">
+                <div id="loginError" class="error hidden"></div>
+                <input id="loginEmail" placeholder="example@school.com" />
+                <div class="password-row">
+                    <input id="loginPass" type="password" placeholder="••••••••" />
+                    <button id="togglePass" class="small">👁️</button>
+                </div>
+                <div class="modal-actions" style="display:flex;gap:8px;margin-top:12px;">
+                    <button id="doLogin" class="btn primary" data-i18n="loginBtn">دخول</button>
+                    <button id="googleLogin" class="btn" style="background:#fff;border:1px solid #e6e6e6">تسجيل بجوجل</button>
+                </div>
+                <div class="note" style="margin-top:12px">
+                    <strong data-i18n="demo">حسابات تجريبية:</strong><br />
+                    Admin: admin@school.com / admin123<br />
+                    Student: student@school.com / student123<br />
+                    Teacher: teacher@school.com / teacher123
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit modal -->
+    <div id="editModal" class="modal hidden" role="dialog" aria-modal="true">
+        <div class="modal-card animate-modal">
+            <div class="modal-header">
+                <h3 id="editTitle">تحرير</h3>
+                <button class="close" data-action="closeEdit">×</button>
+            </div>
+            <div class="modal-body" id="editBody"></div>
+        </div>
+    </div>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
