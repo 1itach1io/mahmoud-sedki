@@ -1,209 +1,0 @@
-<!doctype html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>مدرسة محمود صدقي – منصة تعليمية احترافية متميزة</title>
-    <meta name="description" content="مدرسة محمود صدقي - منصة تعليمية حديثة توفر بيئة تعليمية متطورة لأبنائنا الطلاب">
-
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="styles.css">
-
-    <!-- Firebase compat SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
-</head>
-<body>
-<div id="app" class="app">
-    <!-- Header -->
-    <header class="header">
-        <div class="container header-inner">
-            <div class="brand">
-                <div class="logo-image">
-                    <img src="school_logo.png" height="68" width="68"/></div>
-                <div>
-                    <h1 class="site-title" data-i18n="ourSchool">مدرسة محمود صدقي</h1>
-                    <div class="site-sub" data-i18n="smartPlatform">منصة تعليمية ذكية متطورة</div>
-                </div>
-            </div>
-
-            <nav class="nav" id="nav">
-                <button class="nav-btn" data-target="home" data-i18n="home">الرئيسية</button>
-                <button class="nav-btn" data-target="schedule" data-i18n="schedule">الجدول</button>
-                <button class="nav-btn" data-target="teachers" data-i18n="teachers">المعلمون</button>
-                <button class="nav-btn" data-target="activities" data-i18n="activities">الأنشطة</button>
-                <button class="nav-btn" data-target="contact" data-i18n="contact">اتصل بنا</button>
-            </nav>
-
-            <div class="controls">
-                <select id="langSelect" class="lang-select" title="اختيار اللغة">
-                    <option value="ar">العربية (AR)</option>
-                    <option value="en">English (EN)</option>
-                    <option value="fr">Français (FR)</option>
-                </select>
-                <button id="darkBtn" class="control" title="تبديل الوضع">
-                    <span class="dark-icon">🌙</span>
-                </button>
-                <div id="userArea" class="user-area"></div>
-                <button id="menuToggle" class="menu-toggle">☰</button>
-            </div>
-        </div>
-
-        <!-- Mobile nav -->
-        <div id="mobileNav" class="mobile-nav hidden">
-            <button class="nav-btn" data-target="home" data-i18n="home">الرئيسية</button>
-            <button class="nav-btn" data-target="schedule" data-i18n="schedule">الجدول</button>
-            <button class="nav-btn" data-target="teachers" data-i18n="teachers">المعلمون</button>
-            <button class="nav-btn" data-target="activities" data-i18n="activities">الأنشطة</button>
-            <button class="nav-btn" data-target="contact" data-i18n="contact">اتصل بنا</button>
-        </div>
-    </header>
-
-    <!-- Main -->
-    <main class="main container" id="mainContent">
-        <!-- Home -->
-        <section id="home" class="page">
-            <section class="hero animate-hero">
-                <div class="hero-left">
-                    <h2 class="hero-title" data-i18n="welcome">مرحباً بك في مدرسة محمود صدقي</h2>
-                    <p class="hero-sub" data-i18n="modernPlatform">منصة تعليمية حديثة ومتميزة لمستقبل أفضل لأبنائنا</p>
-                    <div class="hero-actions">
-                        <button class="btn primary" data-target="schedule" id="exploreBtn" data-i18n="exploreNow">استكشف الآن</button>
-                        <button class="btn" id="startBtn" data-i18n="startLearning">ابدأ التعلم</button>
-                    </div>
-                </div>
-                <div class="hero-right floating">
-                    <img src="school_logo.png" height="162" width="208"/></div>
-            </section>
-
-            <section class="features" aria-label="features">
-                <article class="card animate-on-scroll">
-                    <div class="icon">📚</div>
-                    <h3 data-i18n="content">محتوى تعليمي</h3>
-                    <p data-i18n="contentDesc">مكتبة شاملة من الدروس المتميزة</p>
-                </article>
-                <article class="card animate-on-scroll">
-                    <div class="icon">📅</div>
-                    <h3 data-i18n="organized">جدول منظم</h3>
-                    <p data-i18n="organizedDesc">تتبع الحصص بسهولة ويسر</p>
-                </article>
-                <article class="card animate-on-scroll">
-                    <div class="icon">👩‍🏫 </div>
-                    <h3 data-i18n="teachersTitle">معلمون متميزون</h3>
-                    <p data-i18n="teachersDesc">نخبة من المعلمين المتميزين</p>
-                </article>
-                <article class="card animate-on-scroll">
-                    <div class="icon">🏆</div>
-                    <h3 data-i18n="evaluation">نظام التقييم</h3>
-                    <p data-i18n="evaluationDesc">متابعة مستمرة للتطور</p>
-                </article>
-            </section>
-        </section>
-
-        <!-- Schedule -->
-        <section id="schedule" class="page hidden">
-            <div class="section-head">
-                <h2 data-i18n="schoolSchedule">الجدول الدراسي</h2>
-                <div id="scheduleAdmin" class="admin-controls"></div>
-            </div>
-            <div id="scheduleList" class="grid"></div>
-        </section>
-
-        <!-- Teachers -->
-        <section id="teachers" class="page hidden">
-            <div class="section-head">
-                <h2 data-i18n="ourTeachers">نخبة المعلمين</h2>
-                <div id="teachersAdmin" class="admin-controls"></div>
-            </div>
-            <div id="teacherList" class="grid"></div>
-        </section>
-
-        <!-- Activities -->
-        <section id="activities" class="page hidden">
-            <div class="section-head">
-                <h2 data-i18n="activitiesTitle">الأنشطة المدرسية</h2>
-            </div>
-            <div id="activitiesList" class="grid"></div>
-        </section>
-
-        <!-- Contact -->
-        <section id="contact" class="page hidden">
-            <div class="section-head">
-                <h2 data-i18n="contactTitle">تواصل معنا</h2>
-            </div>
-            <div class="contact-grid">
-                <div class="contact-card">
-                    <h3 data-i18n="contactInfo">معلومات الاتصال</h3>
-                    <p><strong data-i18n="email">البريد:</strong> school@mahmoudsidky.edu.eg</p>
-                    <p><strong data-i18n="phone">الهاتف:</strong> +20 123 456 7890</p>
-                    <p><strong data-i18n="address">العنوان:</strong> <span data-i18n="location">القاهرة، مصر</span></p>
-                </div>
-                <form id="contactForm" class="contact-card">
-                    <h3 data-i18n="sendMsg">أرسل رسالة</h3>
-                    <input name="name" data-i18n-placeholder="namePlaceholder" placeholder="الاسم" required />
-                    <input type="email" name="email" data-i18n-placeholder="emailPlaceholder" placeholder="البريد الإلكتروني" required />
-                    <textarea name="message" rows="5" data-i18n-placeholder="messagePlaceholder" placeholder="الرسالة" required></textarea>
-                    <button class="btn primary" type="submit" data-i18n="send">إرسال</button>
-                </form>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div>© <span id="year"></span> <span data-i18n="ourSchool">مدرسة محمود صدقي</span> - <span data-i18n="rights">جميع الحقوق محفوظة</span></div>
-        </div>
-    </footer>
-
-    <!-- Login Modal -->
-    <div id="loginModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
-        <div class="modal-card animate-modal">
-            <div class="modal-header">
-                <h3 id="loginTitle" data-i18n="login">تسجيل الدخول</h3>
-                <button class="close" onclick="document.getElementById('loginModal').classList.add('hidden')">×</button>
-            </div>
-            <div class="modal-body">
-                <div id="loginError" class="error hidden"></div>
-                <input id="loginEmail" data-i18n-placeholder="emailExample" placeholder="example@school.com" />
-                <div class="password-row">
-                    <input id="loginPass" type="password" placeholder="••••••••" />
-                    <button id="togglePass" class="small">👁️</button>
-                </div>
-                <div class="modal-actions">
-                    <button id="doLogin" class="btn primary" data-i18n="loginBtn">دخول</button>
-                    <button id="googleLogin" class="btn google-btn">
-                        <span data-i18n="googleLogin">تسجيل بجوجل</span>
-                    </button>
-                </div>
-                <div class="note">
-                    <strong data-i18n="demo">حسابات تجريبية:</strong><br />
-                    <span data-i18n="adminAccount">Admin: admin@school.com / admin123</span><br />
-                    <span data-i18n="studentAccount">Student: student@school.com / student123</span><br />
-                    <span data-i18n="teacherAccount">Teacher: teacher@school.com / teacher123</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Edit modal -->
-    <div id="editModal" class="modal hidden" role="dialog" aria-modal="true">
-        <div class="modal-card animate-modal">
-            <div class="modal-header">
-                <h3 id="editTitle" data-i18n="edit">تحرير</h3>
-                <button class="close" onclick="document.getElementById('editModal').classList.add('hidden')">×</button>
-            </div>
-            <div class="modal-body" id="editBody"></div>
-        </div>
-    </div>
-
-</div>
-
-<script src="app.js"></script>
-</body>
-</html>
