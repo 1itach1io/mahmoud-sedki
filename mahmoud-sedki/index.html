@@ -1,189 +1,0 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl" data-theme="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="منصة مدرستنا التعليمية - مكان للتعلم والإبداع والنجاح">
-    <title data-i18n="hero.title">منصة مدرستنا التعليمية</title>
-
-    <!-- Favicon -->
-    <link rel="icon" href="assets/icons/favicon.ico" type="image/x-icon">
-
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-<!-- Loading Screen with Logo -->
-<div id="loadingScreen" class="loading-screen">
-    <div class="loading-content">
-        <div class="loading-logo">
-            <img src="assets/images/school_logo.png"
-                 alt="School Logo"
-                 class="logo-image"
-                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="logo-fallback" style="display: none;">🎓</div>
-        </div>
-        <div class="loading-spinner">
-            <div class="spinner"></div>
-        </div>
-        <p class="loading-text" data-i18n="msg.loading">جاري التحميل...</p>
-        <div class="loading-bar">
-            <div class="loading-progress"></div>
-        </div>
-    </div>
-</div>
-
-<!-- Navigation Bar -->
-<nav class="navbar">
-    <div class="nav-container">
-        <div class="logo">
-            <img src="assets/images/school_logo.png"
-                 alt="School Logo"
-                 onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><circle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%234CAF50%22/><text x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 font-size=%2240%22 fill=%22white%22>🎓</text></svg>'">
-            <h2 data-i18n="hero.title">منصة مدرستنا التعليمية</h2>
-        </div>
-        <div class="nav-actions">
-            <button id="langBtn" class="lang-btn" title="Change Language">
-                🌐 AR
-            </button>
-            <button id="themeToggle" class="theme-toggle" title="Toggle Theme">
-                <span class="sun-icon">☀️</span>
-                <span class="moon-icon" style="display: none;">🌙</span>
-            </button>
-        </div>
-    </div>
-</nav>
-
-<!-- User Profile Button -->
-<button id="userProfileBtn" class="user-profile-btn" aria-label="User Profile">
-    <img id="userAvatar"
-         src="assets/images/default_avatar.png"
-         alt="Profile"
-         onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><circle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%23fff%22/><text x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 font-size=%2240%22>👤</text></svg>'">
-</button>
-
-<!-- User Profile Sidebar -->
-<div id="userSidebar" class="user-sidebar">
-    <div class="sidebar-header">
-        <img src="assets/images/default_avatar.png"
-             alt="Profile"
-             onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><circle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%23fff%22/><text x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 font-size=%2240%22>👤</text></svg>'">
-        <h3 id="userName" data-i18n="profile.guest">زائر</h3>
-        <p id="userEmail">guest@example.com</p>
-    </div>
-    <div class="sidebar-content">
-        <button id="logoutBtn" class="btn-logout" data-i18n="profile.logout" style="display: none;">
-            تسجيل الخروج
-        </button>
-        <button id="loginBtn" class="btn-login" data-i18n="profile.login">
-            تسجيل الدخول
-        </button>
-    </div>
-</div>
-
-<!-- Overlay -->
-<div id="overlay" class="overlay"></div>
-
-<!-- Main Menu -->
-<div class="menu-container">
-    <a href="#home" class="menu-item" data-i18n="nav.home">الرئيسية</a>
-    <a href="#schedule" class="menu-item" data-i18n="nav.schedule">الجدول الدراسي</a>
-    <a href="#teachers" class="menu-item" data-i18n="nav.teachers">المعلمون</a>
-    <a href="#activities" class="menu-item" data-i18n="nav.activities">الأنشطة</a>
-    <a href="#contact" class="menu-item" data-i18n="nav.contact">اتصل بنا</a>
-</div>
-
-<!-- Main Content -->
-<main class="container">
-    <!-- Hero Section -->
-    <section id="home" class="hero-section">
-        <h1 data-i18n="hero.title">مرحباً بكم في مدرستنا</h1>
-        <p data-i18n="hero.subtitle">مكان للتعلم والإبداع والنجاح</p>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="section">
-        <h2 data-i18n="about.title">عن مدرستنا</h2>
-        <p data-i18n="about.text">مدرستنا هي مكان للتعلم والإبداع والنجاح. نهدف إلى تقديم أفضل تجربة تعليمية للطلاب.</p>
-    </section>
-
-    <!-- Schedule Section -->
-    <section id="schedule" class="section">
-        <h2 data-i18n="schedule.title">الجدول الدراسي</h2>
-        <div class="cards-container">
-            <div class="card">
-                <h3 data-i18n="schedule.morning">الحصص الصباحية</h3>
-                <p data-i18n="schedule.morning.time">7:00 صباحاً – 11:00 صباحاً</p>
-            </div>
-            <div class="card">
-                <h3 data-i18n="schedule.evening">الحصص المسائية</h3>
-                <p data-i18n="schedule.evening.time">1:00 مساءً – 5:00 مساءً</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Teachers Section -->
-    <section id="teachers" class="section">
-        <h2 data-i18n="teachers.title">معلمونا</h2>
-        <div class="cards-container">
-            <div class="card teacher-card">
-                <div class="teacher-avatar">👨‍🏫</div>
-                <h3>أ. أحمد محمد</h3>
-                <p data-i18n="teachers.math">مدرس رياضيات</p>
-            </div>
-            <div class="card teacher-card">
-                <div class="teacher-avatar">👩‍🏫</div>
-                <h3>أ. سارة علي</h3>
-                <p data-i18n="teachers.english">مدرسة لغة إنجليزية</p>
-            </div>
-            <div class="card teacher-card">
-                <div class="teacher-avatar">👨‍🔬</div>
-                <h3>أ. عمر حسن</h3>
-                <p data-i18n="teachers.science">مدرس علوم</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Activities Section -->
-    <section id="activities" class="section">
-        <h2 data-i18n="activities.title">الأنشطة المدرسية</h2>
-        <div class="cards-container">
-            <div class="card activity-card">
-                <div class="activity-icon">⚽</div>
-                <h3 data-i18n="activities.football">فريق كرة القدم</h3>
-                <p data-i18n="activities.football.desc">التدريب كل يوم إثنين وأربعاء</p>
-            </div>
-            <div class="card activity-card">
-                <div class="activity-icon">🎨</div>
-                <h3 data-i18n="activities.art">نادي الفنون</h3>
-                <p data-i18n="activities.art.desc">الرسم والتصميم كل يوم جمعة</p>
-            </div>
-            <div class="card activity-card">
-                <div class="activity-icon">📚</div>
-                <h3 data-i18n="activities.reading">نادي القراءة</h3>
-                <p data-i18n="activities.reading.desc">مناقشة الكتب كل يوم أحد</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="section contact-section">
-        <h2 data-i18n="contact.title">تواصل معنا</h2>
-        <div class="contact-info">
-            <p>📧 <span data-i18n="contact.email">البريد الإلكتروني</span>: school@edu.eg</p>
-            <p>📱 <span data-i18n="contact.phone">الهاتف</span>: +20 123 456 7890</p>
-            <p>📍 <span data-i18n="contact.address">العنوان</span>: الاسكندريه، مصر</p>
-        </div>
-    </section>
-</main>
-
-<!-- Footer -->
-<footer class="footer">
-    <p data-i18n="footer.rights">© 2025 منصة مدرستنا التعليمية – جميع الحقوق محفوظة</p>
-</footer>
-
-<!-- JavaScript Modules -->
-<script type="module" src="js/core/app.js"></script>
-</body>
-</html>
