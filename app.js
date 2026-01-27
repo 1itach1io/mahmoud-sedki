@@ -328,8 +328,6 @@
         if (currentUser) {
             userArea.innerHTML = `
                 <div class="user">
-                    <span class="avatar">${currentUser.avatar || '👤'}</span>
-                    <span>${currentUser.name || currentUser.email}</span>
                     <button id="logoutBtn" class="control" style="padding: 8px 12px;">${t('logout')}</button>
                 </div>
             `;
